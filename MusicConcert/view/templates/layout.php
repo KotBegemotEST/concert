@@ -1,5 +1,5 @@
 <?php
-session_start();
+//session_start();
 ?>
 <html>
 <head>
@@ -50,16 +50,16 @@ session_start();
 		
 				
 			<ul class="nav navbar-nav">
-                <li ><a class="navbar-brand" href="">Home</a></li>
-                 <li><a class="navbar-brand" href="">Shows</a></li>
-                 <li><a class="navbar-brand" href="">Contact us</a></li>
+                <li ><a class="navbar-brand" href="home">Home</a></li>
+                 <li><a class="navbar-brand" href="shows">Shows</a></li>
+                 <li><a class="navbar-brand" href="contact">Contact us</a></li>
             </ul>
 		
 		
 		
-			<form class="nav navbar-form navbar-right"   method="GET" action="search?text=<?php echo $_GET['search']; ?>">
+			<form class="nav navbar-form navbar-right"   method="GET" action="search">
 					<div class="form-group">
-					  <input type="text" class="form-control" name="search" placeholder="Введите текст для поиска">
+					  <input type="text" class="form-control" name="text" placeholder="Введите группу">
 					</div>
 					<button type="submit" class="btn btn-default">Search</button>
 			</form>
@@ -77,7 +77,12 @@ session_start();
 			<div class="row">
 			<p style="text-align: center"><img src="images/logo.png"  alt=""/>
 				<div class="col-md-12 text-center">
-					<h1 class="templatemo_logo"><?php  echo $title;  ?></h1> <!-- /.logo -->
+					<h1 class="templatemo_logo">
+                                            <?php  
+                                          if(isset ($title))  echo $title; 
+                                            ?>
+                                            
+                                        </h1> <!-- /.logo -->
 				</div> <!-- /.col-md-12 -->
 			</div> <!-- /.row -->
 		</div> <!-- /.container -->
@@ -86,12 +91,16 @@ session_start();
 	
 		<div class="container">  
        
-		<!-- php code -->
+		<!-- php code основное содержание ent-->
 				
 		
 			
 	 </div>
-
+<?php
+    if(isset($content)){
+    echo $content;//придет сюда из View
+    }
+?>
 
 
 	 
@@ -102,7 +111,7 @@ session_start();
 
 			<div class="row">
 				<div class="col-md-12 text-center">
-					<p>Copyright &copy; 2018 Your Company Name | Design: NN</p>
+					<p>Copyright &copy; 2018 IVKHK  | Design: Anton Buketov</p>
 				</div> <!-- /.col-md-12 -->
 			</div> <!-- /.row -->
 			 </footer>

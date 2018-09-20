@@ -12,20 +12,39 @@ $title="Контакт ";
 <div class="col-md-6">
 	<div>
 	<h2>Ваше сообщение</h2>
-	
+	<?php
+         if (!isset($_GET['message'])) { {
+             
+             
+         }
+         ?>
 
-	
-	<div class="contact-form">
-		<form  action="send_contact" id="myForm" method="post" >
-				
-				<p><input class="form-control" type="text" id="name" name="name" placeholder="Ваше имя"  autofocus required ></p> 
-				<p><input class="form-control" type="text" id="email" name="email" placeholder="Email address" required></p> 
-				<p><textarea class="form-control" id="mess" name="message" placeholder="Сообщение" required></textarea></p> 	
-				
-				<input class="button" type="submit" name ="send" id="submit" value="Send it">				
-		</form>	
-	</div> <!-- /.contact-form -->
-	
+
+                <div class="contact-form">
+                    <form  action="send_contact" id="myForm" method="post" >
+
+                        <p><input class="form-control" type="text" id="name" name="name" placeholder="Ваше имя"  autofocus required ></p> 
+                        <p><input class="form-control" type="text" id="email" name="email" placeholder="Email address" required></p> 
+                        <p><textarea class="form-control" id="mess" name="message" placeholder="Сообщение" required></textarea></p> 	
+
+                        <input class="button" type="submit" name ="send" id="submit" value="Send it">				
+                    </form>	
+                </div> <!-- /.contact-form -->
+        <?php
+    }//if
+     elseif(isset ($_GET['message']) && $_GET['message'] === 'send'){
+     echo "<h4>Отправка сообщения</h4>";
+     echo '<p>Ваше сообщение отпрвленно. Спасибо</p>';
+     echo '<hr><p> <a href="contact">Написать сообщение </a></p>';    
+     }
+     else{
+         echo '<h4>Ошибка в сообщении</h4>';
+         echo '<p>Исправте вашу ошибку - '.$_GET['message'].'</p>';
+         echo '<hr><p> <a href="contact">Написать сообщение </a></p>';    
+         
+     }
+     
+        ?>
 	
 	</div> <!-- /.inner-content -->
 </div> <!-- /.col-md-6 -->	

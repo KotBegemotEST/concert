@@ -1,20 +1,20 @@
 <?php
 class db {
-	private $conn;
-	private $host;
-	private $user;
-	private $password;
-	private $baseName;
+	private $conn;//дискрипьор соединения с БД
+	private $host;//хостинг localhost
+	private $user;//пользовательroot
+	private $password;//пароль
+	private $baseName;//имя БД
 	
 
     function __construct($params=array()) {
 		$this->conn = false;
-		$this->host = ''; //hostname
-		$this->user = ''; //username
+		$this->host = 'localhost'; //hostname
+		$this->user = 'root'; //username
 		$this->password = ''; //password
-		$this->baseName = ''; //name of your database
+		$this->baseName = 'jktvr17_concert'; //name of your database
 		
-		$this->connect();
+		$this->connect();// метод connect DB
 	}
 
 	function __destruct() {
@@ -24,7 +24,7 @@ class db {
 	function connect() {
 		if (!$this->conn) {
 			try {
-				$this->conn = new PDO('mysql:host='.$this->host.';dbname='.$this->baseName.'', $this->user, $this->password, array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));  
+				$this->conn = new PDO('mysql:host='.$this->host.';dbname='.$this->baseName, $this->user, $this->password, array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));  
 			}
 			catch (Exception $e) {
 				die('Connection failed : ' . $e->getMessage());
@@ -38,16 +38,16 @@ class db {
 
 	function disconnect() {
 		if ($this->conn) {
-			$this->conn = null;
+			$this->conn = null;//разрыв соединения
 		}
 	}
-	
+//-------------------------------------запрос SELECT -> результат одна строка -fetch
 	function getOne($query) {	
 		try{
 			$stmt = $this->conn->prepare($query);
 			$stmt->execute();//PDOStatement::execute — Запускает подготовленный запрос на выполнение	
 			$stmt->setFetchMode(PDO::FETCH_ASSOC);
-			$response = $stmt->fetch();
+			$response = $stmt->fetch();//массив из одной записи
 			
 			return $response;
 		}
@@ -55,18 +55,18 @@ class db {
 			echo "Error: " . $e->getMessage();
 		}
 	}
-	
+//  запрос =SELECT - >результат массив таблица много строк - fetchAll	
 	function getAll($query) {
 		try{
 			$stmt = $this->conn->prepare($query);
 			$stmt->execute();//PDOStatement::execute — Запускает подготовленный запрос на выполнение	
 			$stmt->setFetchMode(PDO::FETCH_ASSOC);
-			$response = $stmt->fetchAll();
+			$response = $stmt->fetchAll();//массив из всех записей
 			
 			return $response;
 		}
-		catch(PDOException $e) {
-			echo "Error: " . $e->getMessage();
+		catch(PDOException $e) {// исключения ошибки ERROR
+            echo "Error: " . $e->getMessage();
 		}
 	}
 	//--------------------------------------------------------------------
@@ -76,9 +76,9 @@ class db {
 	function executeRun($query) {
 	
 		try{
-			$response = $this->conn->exec($query);
+			$response = $this->conn->exec($query);//выполнение запроса
 			
-			return $response;
+			return $response;//результат TRUE  или  FALSE
 		}
 		catch(PDOException $e) {
 			echo "Error: " . $e->getMessage();
