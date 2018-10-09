@@ -19,9 +19,11 @@ elseif ($uri=="detail" && isset($_GET['id'])) {
     $id=$_GET['id'];//номер записи в таблице
     $response= Controller::concertDetail($id);
 }
+
 elseif ($uri=="shows") {
     $response= Controller::concertList();
 }
+
 elseif ($uri=="arhiv") {
     $response= Controller::arhivList();
 }
@@ -32,9 +34,24 @@ elseif ($uri=="search" && isset($_GET['text'])) {
 }
 
 
+elseif ($uri=="order" && isset($_GET['id'])) {
+    $id=$_GET['id'];//номер записи в таблице
+    $response= Controller::oneOrder($id);
+}
+elseif ($uri=='send_order' && isset($_GET['id']) ){
+  $id=$_GET['id'];
+  $response=Controller::orderSend($id);    
+}
 
 
-
+//----------------register user
+elseif ($uri == 'form_register'){
+    //на форму регистрации
+    $response= Controller::registerForm();
+}
+elseif ($uri=='register') {
+    $response= Controller::registerUser();
+}
 
 else{
    $response=Controller::error_404();  

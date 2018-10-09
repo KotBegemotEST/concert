@@ -61,6 +61,30 @@ class Controller {
     include_once 'view/concertSearch.php';
 
  }
+
+ //-------------Order
+ public function oneOrder($id){
+      $row=Model::getOrder($id);//Записи концертов
+      include_once 'view/order.php';
+ }
+
+   //-------------sendContact
+  
+  public function orderSend($id){
+     $row=Model::getOrder($id);//Записи концертов
+    include_once 'view/orderSend.php';
+  }
+  
+      //-------------Register user
+    public function registerForm() {
+        include_once 'view/registerForm.php';//пустая форма для заполнения
+    }
+    public function registerUser(){
+       $reg_result= Model::registerUser();
+       //идем назад в форму
+       include_once 'view/registerForm.php';
+    }
+
  
 }
  
